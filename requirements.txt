@@ -1,0 +1,57 @@
+# Requirements / Quickstart (cross-platform)
+
+# 1) Install Node.js (recommended LTS)
+#    - macOS (Homebrew): brew install node
+#    - Windows: https://nodejs.org/ (install LTS)
+#    - Linux: use your distro package manager or https://nodejs.org/
+#
+# Recommended versions tested with this project:
+#    Node: 18.x or 20.x
+#    npm: 9.x or 10.x
+
+# 2) From the project root, install server and client dependencies
+#    This repository contains two packages: `server/` and `client/`.
+
+# Install server deps
+cd server
+npm install
+
+# Install client deps
+cd ../client
+npm install
+
+# 3) Create environment variables
+#    Copy the example env and edit values as needed (server/.env)
+cd ..
+cp .env.example .env
+# Edit `.env` and set MONGO_URI (if using MongoDB) and JWT_SECRET etc.
+
+# 4) Run dev servers (two terminals or background processes)
+#    Terminal 1 - start backend (nodemon recommended):
+cd server
+npm run dev
+
+#    Terminal 2 - start frontend (Vite):
+cd ../client
+npm run dev
+
+# 5) Production build (frontend):
+cd client
+npm run build
+# Serve the `client/dist` from any static server, or configure the server to serve built assets.
+
+# 6) Optional: quick checks
+#    - Check ports: frontend default 5173, backend default 5001 (see server/.env)
+#    - If frontend shows a blank page, open browser console and Vite terminal logs.
+
+# Troubleshooting
+# - If you see `MONGO_URI not set` the server will run without DB; set MONGO_URI in `.env` to enable MongoDB.
+# - If Vite complains about Tailwind/PostCSS, either remove Tailwind usages in `client/src/index.css` or install proper PostCSS plugin per Vite/Tailwind docs.
+# - If `port already in use`, kill the process using the port (macOS: lsof -i :5173 | awk 'NR>1 {print $2}' | xargs kill -9).
+
+# Developer notes
+# - The project is a lightweight MERN scaffold. For production you should:
+#    * Use a real MongoDB connection (Atlas or self-hosted)
+#    * Replace in-memory/demo data with DB-backed storage
+#    * Add authentication & authorization
+#    * Add tests and CI workflows
